@@ -1,0 +1,44 @@
+﻿[
+    {
+        "NameTarget":  "ac-izov6s7-shard-00-02.ecrc3se.mongodb.net",
+        "Priority":  0,
+        "Weight":  0,
+        "Port":  27017,
+        "Name":  "_mongodb._tcp.cluster0.ecrc3se.mongodb.net",
+        "Type":  33,
+        "CharacterSet":  1,
+        "Section":  1,
+        "DataLength":  16,
+        "TTL":  38,
+        "QueryType":  33,
+        "Target":  "ac-izov6s7-shard-00-02.ecrc3se.mongodb.net"
+    },
+    {
+        "NameTarget":  "ac-izov6s7-shard-00-00.ecrc3se.mongodb.net",
+        "Priority":  0,
+        "Weight":  0,
+        "Port":  27017,
+        "Name":  "_mongodb._tcp.cluster0.ecrc3se.mongodb.net",
+        "Type":  33,
+        "CharacterSet":  1,
+        "Section":  1,
+        "DataLength":  16,
+        "TTL":  38,
+        "QueryType":  33,
+        "Target":  "ac-izov6s7-shard-00-00.ecrc3se.mongodb.net"
+    },
+    {
+        "NameTarget":  "ac-izov6s7-shard-00-01.ecrc3se.mongodb.net",
+        "Priority":  0,
+        "Weight":  0,
+        "Port":  27017,
+        "Name":  "_mongodb._tcp.cluster0.ecrc3se.mongodb.net",
+        "Type":  33,
+        "CharacterSet":  1,
+        "Section":  1,
+        "DataLength":  16,
+        "TTL":  38,
+        "QueryType":  33,
+        "Target":  "ac-izov6s7-shard-00-01.ecrc3se.mongodb.net"
+    }
+]
