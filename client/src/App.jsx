@@ -18,40 +18,51 @@ import { useAppContext } from './context/AppContext'
 import { SignIn } from '@clerk/clerk-react'
 import Loading from './components/Loading'
 import Chatbot from './components/Chatbot'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const PageWrapper = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 15 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -15 }}
+    transition={{ duration: 0.4, ease: "easeInOut" }}
+  >
+    {children}
+  </motion.div>
+);
 
 const App = () => {
 
-  const isAdminRoute=useLocation().pathname.startsWith('/admin')
+  const location=useLocation()
+  const isAdminRoute=location.pathname.startsWith('/admin')
 
   const {user}=useAppContext()
   return (
     <>
     <Toaster/>
       {!isAdminRoute && <Navbar/>}
-      <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/movies' element={<Movies/>}/>
-          <Route path='/movies/:id' element={<MovieDetails/>}/>
-          <Route path='/movies/:id/:date' element={<SeatLayout/>}/>
-          <Route path='/my-bookings' element={<MyBookings/>}/>
-          <Route path='/loading/:nextUrl' element={<Loading/>}/>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+            <Route path='/' element={<PageWrapper><Home/></PageWrapper>}/>
+            <Route path='/movies' element={<PageWrapper><Movies/></PageWrapper>}/>
+            <Route path='/movies/:id' element={<PageWrapper><MovieDetails/></PageWrapper>}/>
+            <Route path='/movies/:id/:date' element={<PageWrapper><SeatLayout/></PageWrapper>}/>
+            <Route path='/my-bookings' element={<PageWrapper><MyBookings/></PageWrapper>}/>
+            <Route path='/loading/:nextUrl' element={<PageWrapper><Loading/></PageWrapper>}/>
+            <Route path='/favorite' element={<PageWrapper><Favorite/></PageWrapper>}/>
 
-          <Route path='/favorite' element={<Favorite/>}/>
-
-          <Route path='/admin/*' element={user ? <Layout/>:(
-            <div className='min-h-screen flex justify-center items-center'>
-              <SignIn fallbackRedirectUrl={'/admin'}/>
-            </div>
-          )}>
-            <Route index element={<Dashboard/>}/>
-            <Route path='add-shows' element={<AddShows/>}/>
-            <Route path='list-shows' element={<ListShows/>}/>
-            <Route path='list-bookings' element={<ListBookings/>}/>
-
-
-
-          </Route>
-       </Routes>
+            <Route path='/admin/*' element={user ? <Layout/>:(
+              <div className='min-h-screen flex justify-center items-center'>
+                <SignIn fallbackRedirectUrl={'/admin'}/>
+              </div>
+            )}>
+              <Route index element={<Dashboard/>}/>
+              <Route path='add-shows' element={<AddShows/>}/>
+              <Route path='list-shows' element={<ListShows/>}/>
+              <Route path='list-bookings' element={<ListBookings/>}/>
+            </Route>
+        </Routes>
+      </AnimatePresence>
       {!isAdminRoute && <Footer/>}
       {!isAdminRoute && <Chatbot/>}
       

@@ -7,6 +7,7 @@ import isoTimeFormat from '../lib/isoTimeFormat'
 import BlurCircle from '../components/BlurCircle'
 import {toast} from 'react-hot-toast'
 import { useAppContext } from '../context/AppContext'
+import { motion } from 'framer-motion'
 
 const SeatLayout = () => {
 
@@ -53,14 +54,19 @@ const SeatLayout = () => {
         {Array.from({length:count},(_,i)=>{
           const seatId=`${row}${i+1}`;
           return (
-            <button key={seatId} onClick={()=>handleSeatClick
-              (seatId)} className={`h-8 w-8 rounded border border-primary/
+            <motion.button 
+              key={seatId} 
+              onClick={()=>handleSeatClick(seatId)} 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.85 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              className={`h-8 w-8 rounded border border-primary/
                 60 cursor-pointer
                  ${selectedSeats.includes(seatId) && 
                   "bg-primary text-white"}
                   ${occupiedSeats.includes(seatId) ? 'opacity-50':""}`}>
               {seatId}
-            </button>
+            </motion.button>
           )
         })}
       </div>
@@ -152,11 +158,15 @@ const SeatLayout = () => {
          </div>
          </div>
 
-         <button onClick={bookTickets} className='flex items-center gap-1 mt-20 px-10 py-3 text-sm
-         bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer active:scale-95'>
+         <motion.button 
+          onClick={bookTickets} 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className='flex items-center gap-1 mt-20 px-10 py-3 text-sm
+         bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>
           Proceed to Checkout
           <ArrowRightIcon strokeWidth={3} className='w-4 h-4'/>
-         </button>
+         </motion.button>
 
          
 

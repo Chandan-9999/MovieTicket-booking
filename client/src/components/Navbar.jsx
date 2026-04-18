@@ -4,6 +4,7 @@ import { assets } from "../assets/assets";
 import { Menu, MenuIcon, SearchIcon, TicketPlus, User, XIcon } from "lucide-react";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { useAppContext } from "../context/AppContext";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,11 @@ const Navbar = () => {
   const {favoriteMovies}=useAppContext()
 
   return (
-    <div className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5">
+    <motion.div 
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5">
       <Link to="/" className="max-md:flex-1">
         <img src={assets.logo} alt="" className="w-36 h-auto" />
       </Link>
@@ -33,46 +38,62 @@ const Navbar = () => {
           onClick={() => setIsOpen(!isOpen)}
         />
 
-        <Link
-          onClick={() => {
-            scrollTo(0, 0); setIsOpen(false);
-          }}
-          to="/"
-        >
-          Home
-        </Link>
-        <Link
-          onClick={() => {
-            scrollTo(0, 0); setIsOpen(false);
-          }}
-          to="/movies"
-        >
-          Movies
-        </Link>
-        <Link
-          onClick={() => {
-            scrollTo(0, 0); setIsOpen(false);
-          }}
-          to="/"
-        >
-          Theaters
-        </Link>
-        <Link
-          onClick={() => {
-            scrollTo(0, 0); setIsOpen(false);
-          }}
-          to="/"
-        >
-          Releases
-        </Link>
-        {favoriteMovies.length > 0 && <Link
-          onClick={() => {
-            scrollTo(0, 0); setIsOpen(false);
-          }}
-          to="/favorite"
-        >
-          Favorites
-        </Link>}
+        <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            onClick={() => {
+              scrollTo(0, 0); setIsOpen(false);
+            }}
+            to="/"
+          >
+            Home
+          </Link>
+        </motion.div>
+        
+        <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            onClick={() => {
+              scrollTo(0, 0); setIsOpen(false);
+            }}
+            to="/movies"
+          >
+            Movies
+          </Link>
+        </motion.div>
+
+        <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            onClick={() => {
+              scrollTo(0, 0); setIsOpen(false);
+            }}
+            to="/"
+          >
+            Theaters
+          </Link>
+        </motion.div>
+
+        <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            onClick={() => {
+              scrollTo(0, 0); setIsOpen(false);
+            }}
+            to="/"
+          >
+            Releases
+          </Link>
+        </motion.div>
+
+        {favoriteMovies.length > 0 && (
+          <motion.div whileHover={{ scale: 1.1, y: -2 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              onClick={() => {
+                scrollTo(0, 0); setIsOpen(false);
+              }}
+              to="/favorite"
+            >
+              Favorites
+            </Link>
+          </motion.div>
+        )}
       </div>
 
       <div className="flex items-center gap-8">
@@ -97,7 +118,7 @@ const Navbar = () => {
         className="max-md:ml-4 md:hidden w-8 h-8 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       />
-    </div>
+    </motion.div>
   );
 };
 
